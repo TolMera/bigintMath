@@ -68,50 +68,29 @@ export class BigIntegerMath implements MathInterface {
     // cosh
 
 
-    public acos(input: number | bigint | string) {
+    public acos(input: number | bigint) {
         this.handleNumberOneToNegativeOne(input, Math.acos);
     }
-
-    public acosh(input: number | bigint | string) {
+    
+    public acosh(input: number | bigint) {
         this.handleNumberOneToNegativeOne(input, Math.acosh);
     }
 
-    public atanh(input: number | bigint | string) {
+    public atanh(input: number | bigint) {
         this.handleNumberOneToNegativeOne(input, Math.atanh);
     }
-    public asin(input: number | bigint | string) {
+    public asin(input: number | bigint) {
         this.handleNumberOneToNegativeOne(input, Math.asin);
     }
 
-    private handleNumberOneToNegativeOne(input: number | bigint | string, fn: Function) {
+    private handleNumberOneToNegativeOne(input: number | bigint, fn: Function) {
         if (typeof input === 'number') return fn(input);
-        if (typeof input === 'string') {
-            let stringToNumber = Number(input);
-            if (Number.isFinite(stringToNumber)) {
-                if (stringToNumber > 1 || stringToNumber < -1) {
-                    return NaN;
-                } else {
-                    return fn(stringToNumber);
-                }
-            } else {
-                return NaN;
-            }
-        }
-        if (typeof input === 'bigint') {
-            if (input > 1n || input < -1n) return NaN;
-            return fn(Number(input));
-        }
+        if (input > 1n || input < -1n) return NaN;
+        return fn(Number(input));
     }
 
     public ceil(num: number | bigint): number | bigint {
-        if (typeof num === 'string') {
-            return this.ceilOfString(num)
-        }
-        
-        if (typeof num === 'number') {
-            return this.ceilOfString(num.toString());
-        }
-
+        if (typeof num === 'number') return this.ceilOfString(num.toString());
         return num;
     }
 
@@ -131,15 +110,8 @@ export class BigIntegerMath implements MathInterface {
         return BigInt(major);
     }
 
-    public floor(num: number | string | bigint): number | bigint {
-        if (typeof num === 'string') {
-            return this.floorOfString(num)
-        }
-        
-        if (typeof num === 'number') {
-            return this.floorOfString(num.toString());
-        }
-
+    public floor(num: number | bigint): number | bigint {
+        if (typeof num === 'number') return this.floorOfString(num.toString());
         return num;
     }
 
@@ -154,19 +126,12 @@ export class BigIntegerMath implements MathInterface {
         return BigInt(major);
     }
 
-    public round(num: number | string | bigint): number | bigint {
-        if (typeof num === 'string') {
-            return this.roundString(num)
-        }
-        
-        if (typeof num === 'number') {
-            return this.roundString(num.toString());
-        }
-
+    public round(num: number | bigint): number | bigint {
+        if (typeof num === 'number') return this.roundString(num.toString());
         return num;
     }
 
-    public fround(num: number | string | bigint): number | bigint {
+    public fround(num: number | bigint): number | bigint {
         return this.floor(this.round(num))
     }
 
@@ -187,12 +152,12 @@ export class BigIntegerMath implements MathInterface {
         return BigInt(Math.floor(Math.random() * Number.MAX_SAFE_INTEGER));
     }
 
-    public abs(x: number | bigint): number | bigint {
-        if (typeof x === 'number') return Math.abs(x);
+    public abs(input: number | bigint): number | bigint {
+        if (typeof input === 'number') return Math.abs(input);
 
-        if (x > -Number.MAX_SAFE_INTEGER && x < Number.MAX_SAFE_INTEGER) return Math.abs(Number(x));
+        if (input > -Number.MAX_SAFE_INTEGER && input < Number.MAX_SAFE_INTEGER) return Math.abs(Number(input));
 
-        return x < 0n ? -x : x;
+        return input < 0n ? -input : input;
     }
 
     public max(...args: (number | bigint)[]): number | bigint {
