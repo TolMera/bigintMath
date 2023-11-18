@@ -1,21 +1,26 @@
 interface MathInterface {
-    abs: Function; 
-    max: Function;
-    min: Function;
-    sign: Function;
-    sqrt: Function;
+    abs: Function; // 20231119
+    max: Function; // 20231119
+    min: Function; // 20231119
+    sign: Function; // 20231119
+    sqrt: Function; // 20231119
 
-    ceil: Function;
-    floor: Function;
-    round: Function;
+    ceil: Function; // 20231119
+    floor: Function; // 20231119
+    round: Function; // 20231119
     
-    random: Function;
+    random: Function; // 20231119
 
-    acos: Function;
-    atanh: Function;
-    asin: Function;
+    acos: Function; // 20231119
+    atanh: Function; // 20231119
+    asin: Function; // 20231119
+    acosh: Function; // 20231119
 
-    acosh: Function;
+    log: Function;
+    log1p: Function;
+    log2: Function;
+    log10: Function;
+
     asinh: Function;
     atan: Function;
     atan2: Function;
@@ -30,36 +35,32 @@ interface MathInterface {
     expm1: Function;
     clz32: Function;
     exp: Function;
-    fround: Function;
+    fround: Function; // 20231119
     hypot: Function;
     imul: Function;
-    log: Function;
-    log1p: Function;
-    log2: Function;
-    log10: Function;
-    pow: Function;
-    trunc: Function;
+    pow: Function; // 20231119
+    trunc: Function; // 20231119
 
     // Constants
-    E: number;
-    LN10: number;
-    LN2: number;
-    LOG10E: number;
-    LOG2E: number;
-    PI: number;
-    SQRT1_2: number;
-    SQRT2: number;
+    readonly E: number; // 20231119
+    readonly LN10: number; // 20231119
+    readonly LN2: number; // 20231119
+    readonly LOG10E: number; // 20231119
+    readonly LOG2E: number; // 20231119
+    readonly PI: number; // 20231119
+    readonly SQRT1_2: number; // 20231119
+    readonly SQRT2: number; // 20231119
 }
 
 export class BigIntegerMath implements MathInterface {
-    E = Math.E;
-    LN10 = Math.LN10;
-    LN2 = Math.LN2;
-    LOG10E = Math.LOG10E;
-    LOG2E = Math.LOG2E;
-    PI = Math.PI;
-    SQRT1_2 = Math.SQRT1_2;
-    SQRT2 = Math.SQRT2;
+    readonly E = Math.E;
+    readonly LN10 = Math.LN10;
+    readonly LN2 = Math.LN2;
+    readonly LOG10E = Math.LOG10E;
+    readonly LOG2E = Math.LOG2E;
+    readonly PI = Math.PI;
+    readonly SQRT1_2 = Math.SQRT1_2;
+    readonly SQRT2 = Math.SQRT2;
 
     // asinh
     // atan
@@ -71,7 +72,7 @@ export class BigIntegerMath implements MathInterface {
     public acos(input: number | bigint) {
         this.handleNumberOneToNegativeOne(input, Math.acos);
     }
-    
+
     public acosh(input: number | bigint) {
         this.handleNumberOneToNegativeOne(input, Math.acosh);
     }
@@ -109,6 +110,8 @@ export class BigIntegerMath implements MathInterface {
         }
         return BigInt(major);
     }
+
+    public trunc = this.floor;
 
     public floor(num: number | bigint): number | bigint {
         if (typeof num === 'number') return this.floorOfString(num.toString());
